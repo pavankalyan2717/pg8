@@ -1,0 +1,125 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+}
+
+program 5
+
+%%%%%%%%jenkins installation procedure%%%%
+1.sudo apt update
+2.sudo apt upgrade
+3.For installation of java->sudo apt install openjdk-21or17-jdk
+4.To chech java version ->java -version
+5.Adding jenkins  repoistory-> 1.sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+                               2.sudo sh -c 'echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+6.sudo apt update
+7.for jenkins installation ->sudo apt install jenkins
+8.sudo systemctl start jenkins
+9.sudo systemctl enable jenkins
+10.sudo systemctl status jenkins
+11.sudo apt install ufw (ufw-uncomplicated firewall)
+12.sudo ufw allow 8080
+13.sudo ufw enable
+14.sudo ufw reload
+15.sudo ufw status
+16.open browser and enter http://localhost:8080
+17.sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+18.copy paste terminal string characters into browser password field
+19.create username and password save and continue 
+20.follow screenshots jenkins
+    1. click on new item -> enter item name and select pipeline and press ok
+    2.in configure select pipeline copy paste pipeline prgm apply and save
+    3.build now
+
+program 6
+HAVE  TO CREATE MAVEN PROJECT USING TERMINAL 
+
+1.git remote add origin https://github.com/heln123-maker/my-ci-pipeline.git
+2.git add .
+3.git commit -m "Initial commit: my-ci-pipeline"
+4.git push -u origin main
+
+steps:-Step 1: Create a New Jenkins Job
+1. Log into Jenkins:
+o Open your web browser and navigate to your Jenkins URL (e.g.,
+http://localhost:8080 or your cloud instance URL).
+o Log in with your admin credentials.
+
+
+2. Create a New Job:
+o On the Jenkins dashboard, click on “New Item”.
+o Enter an Item Name: For example, Maven-CI (or Gradle-CI if you prefer
+Gradle).
+o Select “Freestyle project”.
+o Click “OK”.
+
+
+Step 2: Configure Source Code Management (SCM)
+1. Select SCM:
+o In the job configuration page, scroll down to the “Source Code Management”
+section.
+o Select “Git” (if using Git for version control).
+2. Enter Repository Details:
+o Repository URL: Enter the URL of your Git repository (for example,
+https://github.com/yourusername/your-maven-project.git).
+o Credentials: If your repository is private, click “Add” to provide the necessary
+credentials.
+o Optionally, specify the Branch Specifier (e.g., */main).
+
+
+Step 3: Add Build Steps
+A. For a Maven Project
+1. Add Maven Build Step:
+o Scroll down to “Build” and click on “Add build step”.
+o Select “Invoke top-level Maven targets”.
+o Goals: In the Goals field, enter:
+o clean package
+
+B. For a Gradle Project
+1. Add Gradle Build Step:
+o If you are integrating a Gradle project, click on “Add build step” and choose
+“Invoke Gradle script” (this option might be available if you have installed a
+Gradle plugin in Jenkins).
+o Tasks: In the tasks field, enter:
+o clean build
+
+
+This instructs Gradle to clean previous build outputs and then build the project,
+running tests along the way.
+
+
+Step 4: Configure Post-build Actions
+1. Publish Test Results:
+o Scroll down to the “Post-build Actions” section.
+o Click “Add post-build action” and select “Publish JUnit test result report”.
+o Test Report XMLs: In the field, enter the pattern that matches your test report
+files. For example:
+o **/target/surefire-reports/*.xml
+for Maven, or a similar path for Gradle projects.
+
+
+Step 5: Save and Run the Job
+1. Save the Configuration:
+o Click “Save” at the bottom of the job configuration page.
+2. Trigger a Build:
+o On the job’s main page, click “Build Now”.
+o The build will be added to the build history on the left side.
+3. Monitor Build Output:
+o Click on the build number (e.g., #1) and then click “Console Output”
+
