@@ -17,20 +17,14 @@ A. Create an Inventory File
 localhost ansible_connection=local
 B. Create the Deployment Playbook
 after saving get back to terminal and type nano deploy.yml and enter below code inside it
-- name: Deploy Maven Artifact
-  hosts: localhost
-  become: yes
-  tasks:
-    - name: Create deployment directory if it does not exist
-      file:
-        path: /opt/deployment
-        state: directory
-        mode: '0755'
 
-    - name: Copy the artifact to the deployment directory
-      ansible.builtin.copy:
-        src: "/var/lib/jenkins/workspace/hellomaven-ci/target/hellomaven-ci-1.0-SNAPSHOT.jar"
-        dest: "/opt/deployment/HelloMaven.jar"
+- name: Basic Server Setup
+  hosts: local
+  become: true  # Optional: if your tasks need root access
+  tasks:
+    - name: Example task
+      debug:
+        msg: "Hello, this is a basic setup"
 
 c. Save and Exit the File
 
